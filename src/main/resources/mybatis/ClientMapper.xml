@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.azlan.test.mapper.ClientMapper">
+
+    <resultMap id="client" type="com.azlan.test.model.Client">
+        <id property="id" column="id"/>
+        <result property="firstName" column="firstname"/>
+        <result property="lastName" column="lastname"/>
+    </resultMap>
+
+    <select id="findByFirstName" resultMap="client" parameterType="java.lang.String">
+        SELECT
+            id as id,
+            first_name as firstName,
+            last_name as lastName
+        FROM spring_demo.clients
+        WHERE first_name = #{value}
+    </select>
+
+    <select id="selectOne" resultMap="client" parameterType="long">
+        SELECT
+               id as id,
+               first_name as firstName,
+               last_name as lastName
+        FROM spring_demo.clients
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="client">
+        SELECT
+               id as id,
+               first_name as firstName,
+               last_name as lastName
+        FROM spring_demo.clients
+    </select>
+
+    <insert id="insertClient" useGeneratedKeys = "true" keyColumn = "id" keyProperty = "id">
+        INSERT INTO spring_demo.clients (id, first_name, last_name)
+        VALUES (#{id}, #{firstName}, #{lastName})
+    </insert>
+
+</mapper>

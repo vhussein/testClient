@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/spring_demo?useSSL=false
+    driverClassName: com.mysql.jdbc.Driver
+    username: ${MYSQL_USERNAME:pcdbuser}
+    password: ${MYSQL_PWD:pcdbuser}
+  profiles:
+    active: production
+
+logging:
+  level:
+    org.springframework: DEBUG
+    com.azlan.test: DEBUG
+
+mybatis:
+  mapper-locations: classpath*:/mybatis/*.xml # Tells mybatis to look in resources/mybatis for XML mappers
+  type-aliases-package: com.azlan.test.model # Tells mybatis to look for our Client class in the right package
