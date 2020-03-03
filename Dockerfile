@@ -6,7 +6,7 @@
 #ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
 
 FROM openjdk:8-jre-alpine
-ADD target/mybatis-test-1.0-SNAPSHOT.jar app.jar
+ADD target/testClient-1.0-SNAPSHOT.jar app.jar
 CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=test", "/app.jar"]
 
 

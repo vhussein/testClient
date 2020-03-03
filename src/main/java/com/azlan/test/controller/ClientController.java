@@ -43,4 +43,10 @@ public class ClientController {
         return new ResponseEntity(HttpStatus.OK);
 
     }
+
+    @GetMapping(value = "/healthCheck")
+    public ResponseEntity healthCheck(){
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }

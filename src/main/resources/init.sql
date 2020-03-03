@@ -13,6 +13,6 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 
-INSERT INTO `clients` VALUES (4,'Theo','Pendle'),(5,'Bruce','Wayne');
+# INSERT INTO `clients` VALUES (4,'Theo','Pendle'),(5,'Bruce','Wayne');
 
 UNLOCK TABLES;
