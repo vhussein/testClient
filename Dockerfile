@@ -7,9 +7,7 @@
 
 FROM openjdk:8-jre-alpine
 ADD target/testClient-1.0-SNAPSHOT.jar app.jar
-CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=test", "/app.jar"]
-
-
-#CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=test", "/app.jar"]
+#CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=dev", "/app.jar"]
+ENTRYPOINT exec java $JAVA_OPTS $DEBUG_OPTS $SPRING_PROFILE -jar /app.jar
 
 
