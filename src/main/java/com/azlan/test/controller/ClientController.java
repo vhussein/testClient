@@ -52,7 +52,7 @@ public class ClientController {
         log.debug("Get client by ID = " + id);
         Client client = clientService.getClient(id);
         if(client == null)
-            throw new ResourceNotFoundException("Client ID" + id + " is not found");
+            throw new ResourceNotFoundException("Client ID " + id + " is not found");
         return ResponseEntity.ok().body(client);
     }
 

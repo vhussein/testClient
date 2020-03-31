@@ -13,15 +13,15 @@
 
 6. Once the artefact (*.jar) is created, you can run the following command:
 
-    > docker build -t images/testclient .
-    && docker run
-    -p 8080:8080
-    --env MYSQL_HOST=host.docker.internal
-    --env MYSQL_USERNAME=pcdbuser
-    --env MYSQL_PWD=pcdbuser
-    --name testclient
-    -m 4g
-    --cpus 1
-    images/testclient 
+    > docker build -t vhussein/test-client .
+      && docker run
+      -p 8081:8080 -p 5000:5000 -p 5005:5005
+      --env MYSQL_HOST=<HOST_IP>
+      --env MYSQL_USERNAME=pcdbuser
+      --env MYSQL_PWD=pcdbuser
+      --name test-client
+      -m 4g
+      -e "JAVA_OPTS=-Xmx2g -Xms2g -XX:+UseConcMarkSweepGC -XX:NativeMemoryTracking=summary -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=5000 -Dcom.sun.management.jmxremote.rmi.port=5000 -Dcom.sun.management.jmxremote.local.only=false -Djava.rmi.server.hostname=<HOST_IP>" -e SPRING_PROFILE=-Dspring.profiles.active=dev
+      vhussein/test-client  
 
-    > **Note**: host.docker.internal is a workaround for mac, for windows, you may want to check your docker config
+    > **Note**: host.docker.internal is a workaround for mac, for windows, you may want to check your docker config. I'm using Docker Toolbox so my IP is 192.169.99.102
