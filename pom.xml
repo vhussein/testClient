@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.azlan.test</groupId>
-    <artifactId>testClient</artifactId>
+    <artifactId>test-client</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -20,6 +20,7 @@
         <mysql.version>8.0.19</mysql.version>
         <lombok.version>1.18.8</lombok.version>
         <mybatis.version>2.0.0</mybatis.version>
+        <spotify.version>1.4.13</spotify.version>
     </properties>
 
     <!-- Swagger 2.9.2 having issues with Spring Boot 2 -->
@@ -153,6 +154,24 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${spotify.version}</version>
+                <executions>
+                    <execution>
+                        <id>build</id>
+                        <phase>package</phase>
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>vhussein/test-client</repository>
+                    <tag>${project.version}</tag>
                 </configuration>
             </plugin>
         </plugins>
