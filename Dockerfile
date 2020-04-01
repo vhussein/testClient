@@ -6,6 +6,6 @@
 #ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
 
 FROM openjdk:8-jre-alpine
-ADD target/testClient-1.0-SNAPSHOT.jar app.jar
+ADD target/test-client-1.0-SNAPSHOT.jar app.jar
 #CMD ["/usr/bin/java", "-jar", "-Dspring.profiles.active=dev", "/app.jar"]
 ENTRYPOINT exec java $JAVA_OPTS $DEBUG_OPTS $SPRING_PROFILE -jar /app.jar
