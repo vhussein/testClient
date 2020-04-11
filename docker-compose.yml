@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+  db:
+    image: mysql:8.0.19
+    container_name: 'mysql_local'
+    restart: always
+    environment:
+      MYSQL_USER: 'pcdbuser'
+      MYSQL_PASSWORD: 'pcdbuser'
+      MYSQL_ROOT_PASSWORD: 'password'
+    networks:
+      - backend
+    ports:
+      - '3306:3306'
+    volumes:
+      - my-db:/var/lib/mysql
+  client-service:
+    image: vhussein/test-client:1.0-SNAPSHOT
+    ports:
+      - '8081:8080'
+      - '5000:5000'
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USERNAME=pcdbuser
+      - MYSQL_PWD=pcdbuser
+      - JAVA_OPTS=-Xmx2g -Xms2g -XX:+UseConcMarkSweepGC -XX:NativeMemoryTracking=summary -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=5000 -Dcom.sun.management.jmxremote.rmi.port=5000 -Dcom.sun.management.jmxremote.local.only=false -Djava.rmi.server.hostname=localhost
+      - SPRING_PROFILE=-Dspring.profiles.active=dev
+    networks:
+      backend:
+
+volumes:
+  my-db:
+
+networks:
+  backend:
