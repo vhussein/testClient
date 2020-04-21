@@ -7,11 +7,12 @@ spring:
   profiles:
     active: dev
 
+mybatis:
+  mapper-locations: classpath*:/mybatis/*.xml # Tells mybatis to look in resources/mybatis for XML mappers
+  type-aliases-package: com.azlan.test.model # Tells mybatis to look for our Client class in the right package
+
 logging:
   level:
     org.springframework: DEBUG
     com.azlan.test: DEBUG
 
-mybatis:
-  mapper-locations: classpath*:/mybatis/*.xml # Tells mybatis to look in resources/mybatis for XML mappers
-  type-aliases-package: com.azlan.test.model # Tells mybatis to look for our Client class in the right package

@@ -12,7 +12,7 @@ public interface ClientMapper {
 
     List<Client> findAll();
 
-    void insertClient(Client client);
+    int insertClient(Client client);
 
     List<Client> findByFirstName(String firstName);
 }
