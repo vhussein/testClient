@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/v1")
+@RequestMapping("/clients") //API versioning will be handled by AWS GW
 @Api(value="Client Management System")
 public class ClientController {
 
@@ -28,14 +28,14 @@ public class ClientController {
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-    @GetMapping("/clients")
+    @GetMapping
     public List<Client> getClients() {
         log.debug("Get all client list");
         return clientService.getClients();
     }
 
     @ApiOperation(value = "Get a client by First Name")
-    @GetMapping("/clients/getClientByFirstName")
+    @GetMapping("/getClientByFirstName")
     public ResponseEntity<List<Client>> getClientByFirstName(@RequestBody Client client) throws ResourceNotFoundException {
         log.debug("Get client by first name");
         List<Client> clientList = clientService.findByFirstName(client.getFirstName());
@@ -45,7 +45,7 @@ public class ClientController {
     }
 
     @ApiOperation(value = "Get a client by Id")
-    @GetMapping(value = "/clients/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Client> getClient(
             @ApiParam(value = "Client id from which client object will retrieve", required = true)
             @PathVariable("id") final Long id) throws ResourceNotFoundException {
@@ -57,15 +57,23 @@ public class ClientController {
     }
 
     @ApiOperation(value = "Create a client")
-    @PostMapping("/clients")
+    @PostMapping
     public ResponseEntity<String> createClient(@RequestBody  Client client) {
-        log.debug("Creating client");
-        clientService.createClient(client);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body("Client " + client.getFirstName() + " " + client.getLastName() + " created");
+
+        try{
+            log.debug("Creating client");
+            clientService.createClient(client);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body("Client " + client.getFirstName() + " " + client.getLastName() + " created");
+        }
+        catch (Exception ex){
+            log.error("Error: " + ex.toString());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("");
+        }
     }
 
-    @GetMapping(value = "/clients/healthCheck")
+    @GetMapping(value = "/healthCheck")
     public ResponseEntity<String> healthCheck(){
         return ResponseEntity.status(HttpStatus.OK).body("I'm alive");
     }

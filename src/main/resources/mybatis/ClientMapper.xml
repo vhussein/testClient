@@ -34,9 +34,9 @@
         FROM spring_demo.clients
     </select>
 
-    <insert id="insertClient" useGeneratedKeys = "true" keyColumn = "id" keyProperty = "id">
-        INSERT INTO spring_demo.clients (id, first_name, last_name)
-        VALUES (#{id}, #{firstName}, #{lastName})
+    <insert id="insertClient" useGeneratedKeys = "true" keyColumn = "id" keyProperty = "id" parameterType="com.azlan.test.model.Client">
+        INSERT INTO spring_demo.clients (first_name, last_name)
+        VALUES (#{firstName}, #{lastName})
     </insert>
 
 </mapper>
