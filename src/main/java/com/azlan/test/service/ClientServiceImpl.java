@@ -24,6 +24,9 @@ public class ClientServiceImpl implements ClientService {
     @Value("#{environment['ACCOUNT_SERVICE_ENDPOINT'] ?: 'localhost:8080'}")
     private String accServiceEndpoint;
 
+    @Value("#{environment['PROTOCOL'] ?: 'http'}")
+    private String protocol;
+
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private ClientMapper clientMapper;
@@ -82,13 +85,13 @@ public class ClientServiceImpl implements ClientService {
     private List<Account> getAccounts(long clientId){
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Account[]> resp = restTemplate.getForEntity("http://" + accServiceEndpoint + "/accounts/" + clientId, Account[].class);
+        ResponseEntity<Account[]> resp = restTemplate.getForEntity(protocol + "://" + accServiceEndpoint + "/accounts/" + clientId, Account[].class);
         Account[] accounts = resp.getBody();
         return Arrays.asList(Objects.requireNonNull(accounts));
     }
 
     private void createAccount(Account account){
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.postForObject("http://" + accServiceEndpoint + "/accounts/addAccount", account, ResponseEntity.class);
+        restTemplate.postForObject(protocol + "://" + accServiceEndpoint + "/accounts/addAccount", account, ResponseEntity.class);
     }
 }
