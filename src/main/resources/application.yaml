@@ -15,4 +15,6 @@ logging:
   level:
     org.springframework: DEBUG
     com.azlan.test: DEBUG
+  pattern:
+    console: "%date{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %-5p [%logger] %msg MDC=[%X]%n%wex"
 

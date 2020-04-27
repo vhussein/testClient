@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class ClientController {
                     .body(new ResponseModel(new Date(), "Client " + client.getFirstName() + " " + client.getLastName() + " created", ""));
         }
         catch (Exception ex){
-            log.error("Error: " + ex.toString());
+            log.error("Error: " + Arrays.toString(ex.getStackTrace()));
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseModel(new Date(), "Error occured", ""));
         }
